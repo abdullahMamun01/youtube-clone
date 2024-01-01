@@ -2,7 +2,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Feeds from './components/Feeds'
 import Root from './components/Layout/Root'
-import VideoDetails from './components/VideoDetails'
+import VideoDetails from './pages/VideoDetails'
 
 
 const router = createBrowserRouter([

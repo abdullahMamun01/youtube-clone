@@ -15,31 +15,26 @@ const sidebarOptions = [
         icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-play-square"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="m9 8 6 4-6 4Z" /></svg>
     },
     {
-        name: "History" ,
-        icon : <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+        name: "History",
+        icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M12 7v5l4 2" /></svg>
     }
 ];
 export default function Sidebar() {
-
-    const {state,handleClick} = useSelection( sidebarOptions,"Home")
-    console.log(state)
- 
+    const { state, handleClick } = useSelection(sidebarOptions, "Home")
     return (
-        <aside className='min-h-screen w-full '>
-            <div className='flex flex-col gap-2'>
-                {
-                    sidebarOptions.map((option,i) => (
-                        <div key={i} onClick={() => handleClick(option.name)} className={`flex flex-row py-2 gap-x-3 ${state[option.name] && 'bg-[#bbab8c3d] rounded-md font-bold'} font-md hover:bg-[#bbab8c73] hover:rounded-lg px-2`}>
-                            <div className={`text-gray-600 ${state[option.name] && 'text-gray-950 font-bold'}`}>
-                                {option.icon}
-                            </div>
-                            <button >
-                                {option.name}
-                            </button>
+        <aside className='min-h-screen w-full flex flex-col gap-2'>
+            {
+                sidebarOptions.map((option, i) => (
+                    <div key={i} onClick={() => handleClick(option.name)} className={`flex flex-row py-2 gap-x-3 my-2${state[option.name] && 'bg-[#bbab8c3d] rounded-md font-bold'} font-md hover:bg-[#bbab8c73] hover:rounded-lg px-2`}>
+                        <div className={`text-gray-600 ${state[option.name] && 'text-gray-950 font-bold'}`}>
+                            {option.icon}
                         </div>
-                    ))
-                }
-            </div>
+                        <button >
+                            {option.name}
+                        </button>
+                    </div>
+                ))
+            }
         </aside>
     )
 }

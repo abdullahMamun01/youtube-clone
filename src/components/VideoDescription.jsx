@@ -6,12 +6,12 @@ export const VideoDescription = ({ description }) => {
   }, []);
 
   const parts = React.useMemo(() => (description && description.split('\n')), [description]);
-  const [isMore,setIsMore] = useState(false)
+  const [seeMore,setSeeMore] = useState(false)
   return (
     <div className='w-full bg-gray-200 px-4 py-6  box-border'>
       <p>
-        {!isMore && description &&  <h1>{description.slice(0,100)} <span className='cursor-pointer text-sky-600' onClick={() => setIsMore(true)}>see more...</span></h1>}
-        {isMore && parts && parts.map((line) => (
+        {!seeMore && description &&  <h1>{description.slice(0,100)} <span className='cursor-pointer text-sky-600' onClick={() => setSeeMore(true)}>see more...</span></h1>}
+        {seeMore && parts && parts.map((line) => (
           <p className='my-2'>
             {line.split(" ").map((str, i) => (
               hasUrl(str) ? (

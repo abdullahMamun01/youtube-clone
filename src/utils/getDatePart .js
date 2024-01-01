@@ -10,7 +10,7 @@ const getDateDifference = (dateTime = '2023-06-25T14:00:10Z') => {
     } else if (monthDiff > 0) {
       return `${monthDiff} ${monthDiff === 1 ? 'month' : 'months'} ago`;
     } else {
-      return 'Less than a month ago';
+      return '1 month ago';
     }
   };
   
