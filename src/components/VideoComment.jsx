@@ -2,8 +2,7 @@ import React from 'react'
 import LikeIcon from './ui/LikeIcon'
 import DislikeIcon from './ui/DislikeIcon'
 import getDateDifference from '../utils/getDatePart '
-// import LikeIcon from './ui/LikeIcon'
-// import DislikeIcon from './ui/DislikeIcon'
+
 
 const VideoComment = ({ imgUrl, reply, publishedAt ,authorDisplayName}) => {
   const replyTime = getDateDifference(publishedAt)

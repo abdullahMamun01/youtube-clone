@@ -10,7 +10,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="grid grid-cols-12 w-[95%] h-[56px] mx-auto my-auto mb-4">
+        <nav className="grid grid-cols-12 w-[95%] h-[56px] mx-auto my-auto mb-4 ">
             <div className={`max-[768px]:col-span-6 col-span-2 flex flex-row my-auto ${isSearchVisible && 'max-[768px]:hidden'}`}>
                 {/* Menu button */}
                 <div className="basis-[20%] my-auto">

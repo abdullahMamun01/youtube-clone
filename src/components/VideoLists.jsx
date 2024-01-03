@@ -26,10 +26,8 @@ export default function VideoLists() {
     }
   };
 
-
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status, } = useInfiniteScroll('yt-api', selectSearch, '', queryFn, transformDataFn)
+  const { data, error, fetchNextPage, hasNextPage, isFetching, } = useInfiniteScroll('yt-api', selectSearch, '', queryFn, transformDataFn)
   const queryPages = data?.pages
-  console.log(data)
 
   const { ref, inView } = useInView()
 
