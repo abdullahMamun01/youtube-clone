@@ -14,7 +14,6 @@ const Home = () => {
             <div className='basis-[85%] px-[30px] py-2'>
                 <SearchTags />
                 <VideoLists />
-
             </div>
         </main>
 

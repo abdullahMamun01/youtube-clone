@@ -1,9 +1,10 @@
 import React from 'react'
 import VideoComment from './VideoComment'
 import useFetchQuery from '../hooks/useFetchQuery'
+import { API_KEY } from '../utils/constants'
 
 const VideoComments = ({ videoId }) => {
-    const path = `commentThreads?part=snippet%2Creplies&maxResults=50&videoId=${videoId}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`
+    const path = `commentThreads?part=snippet%2Creplies&maxResults=50&videoId=${videoId}&key=${API_KEY}`
     const { data, isLoading, isPending } = useFetchQuery(path)
     console.log(data)
     return (

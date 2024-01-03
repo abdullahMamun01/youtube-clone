@@ -8,6 +8,7 @@ import { useInView } from 'react-intersection-observer'
 import fetchFromApi from '../utils/fetchFromApi'
 import useInfiniteScroll from '../hooks/useInfiniteScroll'
 import transformDataFn from '../utils/transformDataFn'
+import { API_KEY } from '../utils/constants'
 
 
 
@@ -17,7 +18,7 @@ export default function VideoLists() {
   const queryFn = async ({ pageParam }) => {
     if (pageParam === undefined) throw Error('in valid pageParam or api key is expire')
     try {
-      const data = await fetchFromApi(`/search?part=snippet&maxResults=9&pageToken=${pageParam}&q=${selectSearch}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`);
+      const data = await fetchFromApi(`/search?part=snippet&maxResults=9&pageToken=${pageParam}&q=${selectSearch}&key=${API_KEY}`);
       return data;
     } catch (error) {
       console.error(error);
@@ -48,9 +49,9 @@ export default function VideoLists() {
       <div className={`grid  md:grid-cols-12 w-full `}>
         {/* api data render */}
         {
-          queryPages?.map((videos,i) => (
+          queryPages?.map((videos) => (
             videos?.items?.map(item => (
-              <div key={i} className=' col-span-4'>
+              <div key={item.videoId} className=' col-span-4'>
                 <Video key={item.videoId} video={item} />
               </div>
             ))

@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import VideoPlay from '../components/VideoPlay';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 import ChannelInformation from '../components/ChannelInformation';
 import { VideoDescription } from '../components/VideoDescription';
 import useFetchQuery from '../hooks/useFetchQuery';
 import VideoComments from '../components/VideoComments';
+import { API_KEY } from '../utils/constants';
 
 const VideoDetails = () => {
     const { videoId } = useParams();
-    const path = `videos?part=snippet%2Cstatistics&id=${videoId}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`
-    const { data, isLoading, isPending, isFetched } = useFetchQuery(path)
+    const path = `videos?part=snippet%2Cstatistics&id=${videoId}&key=${API_KEY}`
+    const { data, isLoading, isPending, isFetched ,isError} = useFetchQuery(path)
     const videoInfo = data?.items[0]
-   
+    console.log(data , ' id')
+    if(isLoading || isPending){
+        return <div>Loading....</div>
+    }
+    if(isError){
+        return <div> Erorr ....</div>
+    }
+ 
 
     return (
-        <div className='min-h-screen w-[90%] mx-auto flex'>
+        <div className='min-h-screen w-[90%] grid md:grid-cols-12 mx-auto '>
             {
-                (isLoading || isPending) ? <div>Loading...</div>
-                    :
-                    <>
-
+                    <div className='md:col-span-8'>
                         {/* Left Side */}
                         <div className='w-full mr-8'>
                             {/* Video Player */}
@@ -34,7 +39,9 @@ const VideoDetails = () => {
 
                             {/* Channel Information */}
                             <div className='mb-6'>
-                                <ChannelInformation channelId={videoInfo?.snippet?.channelId} statistics={videoInfo?.statistics} channelTitle={videoInfo?.snippet?.channelTitle} />
+                                <Link  to={`/channel/${videoInfo.snippet.channelId}`}>
+                                    <ChannelInformation channelId={videoInfo.snippet.channelId} statistics={videoInfo.statistics} channelTitle={videoInfo?.snippet?.channelTitle} />
+                                </Link>
                             </div>
 
                             {/* Video Description */}
@@ -42,18 +49,18 @@ const VideoDetails = () => {
                                 <VideoDescription description={videoInfo?.snippet?.localized?.description} />
                             </div>
                             {/* video comments */}
-                            <VideoComments videoId={videoId}/>
+                            <VideoComments videoId={videoId} />
                         </div>
 
                         {/* Right Side - Related Videos */}
-                        <div className='w-[30%]'>
+                        <div className='md:col-span-4'>
                             <div className='bg-gray-200 p-4'>
                                 <h2 className='text-xl font-semibold mb-4'>Related Videos</h2>
                                 {/* Include your related videos component here */}
                                 {/* Example: <RelatedVideos /> */}
                             </div>
                         </div>
-                    </>
+                    </div>
 
             }
         </div>

@@ -8,7 +8,6 @@ const useInfiniteScroll = (name, key, initialParam, fetchDataFn, transformDataFn
     queryFn: async (arg) => await fetchDataFn(arg),
     initialPageParam: initialParam,
     select: (data) => {
-      console.log(data, ' use')
       return  {
         pages: data.pages.map(item => ({
           ...item,

@@ -18,6 +18,7 @@
 //   }, [])
 // }
 const transformDataFn = (items) => {
+  console.log(items)
   return items?.reduce((acc, curr) => {
     const video = {}
 
