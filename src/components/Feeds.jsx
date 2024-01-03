@@ -7,11 +7,11 @@ import SearchTags from './SearchTags'
 const Home = () => {
     return (
 
-        <main className='w-[95%] mx-auto flex'>
-            <div className='basis-[15%]'>
+        <main className='w-[95%] max-[768px]:w-full mx-auto grid grid-cols-12'>
+            <div className='col-span-2 max-[768px]:hidden'>
                 <Sidebar />
             </div>
-            <div className='basis-[85%] px-[30px] py-2'>
+            <div className='col-span-10 max-[768px]:col-span-12 px-[30px] py-2'>
                 <SearchTags />
                 <VideoLists />
             </div>
