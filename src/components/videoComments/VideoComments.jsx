@@ -1,13 +1,21 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react'
 import VideoComment from './VideoComment'
-import useFetchQuery from '../hooks/useFetchQuery'
-import { API_KEY } from '../utils/constants'
-import useMediaQuery from '../hooks/useMediaQuery'
-import Accordion from './ui/Accordion'
+import useFetchQuery from '../../hooks/useFetchQuery'
+import { API_KEY } from '../../utils/constants'
+import useMediaQuery from '../../hooks/useMediaQuery'
+import Accordion from '../ui/Accordion'
+import fetchFromApi from '../../utils/fetchFromApi'
 
 const VideoComments = ({ videoId }) => {
-    const path = `commentThreads?part=snippet%2Creplies&maxResults=50&videoId=${videoId}&key=${API_KEY}`
-    const { data, isLoading, isPending, isError, error } = useFetchQuery(path)
+    const params = {
+        part: 'snippet,replies',
+        maxResults: 50,
+        videoId ,
+        key: API_KEY,
+      };
+ 
+    const { data, isLoading, isPending, isError, error } = useFetchQuery(['yt-videos', params],async () => fetchFromApi('/commentThreads' ,params))
+    
     const [showComments, setShowComments] = useState(false)
     const { isSmallDevice } = useMediaQuery('(max-width: 767px )')
 
@@ -21,10 +29,10 @@ const VideoComments = ({ videoId }) => {
     if (isError) {
         return <div>{error.message}</div>
     }
-    const totalComments = `total comments ${data.items.length} ...`
+    const totalComments = `comments ${data.items.length} ...`
     return (
         <div>
-            <div onClick={handleShowComments} className='p-2 min-[768px]:hidden bg-[#bbab8c3d] w-full my-3 rounded-xl'>
+            <div onClick={handleShowComments} className='p-2 min-[768px]:hidden bg-neutral w-full my-3 rounded-xl'>
                 <Accordion totalComments={totalComments}/>
                 {/* <div className=''>
                     <h1 className='text-gray-700 font-semibold'>Comments 300</h1>

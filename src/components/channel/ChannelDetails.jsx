@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatSubscribersCount } from '../utils/formatSubscribersCount'
+import { formatSubscribersCount } from '../../utils/formatSubscribersCount'
 
 const ChannelDetails = ({title, channelUserName ,statistics ,channelProfileImg,description }) => {
     const {subscriberCount} = statistics
@@ -15,19 +15,19 @@ const ChannelDetails = ({title, channelUserName ,statistics ,channelProfileImg,d
 
             {/* channel Details */}
             <div className='max-[768px]: col-span-9'>
-                <h1 className='text-[36px] max-[768px]:text-[24px] text-gray-800 font-bold'>
+                <h1 className='text-[36px] max-[768px]:text-[24px] text-secondary font-bold'>
                     {title}
                     {/* <span className='max-[768px]:block mx-2'></span> */}
                  
                     </h1>
-                <span className='text-[15px] max-[768px]:text-[12px] mx-2 my-3 text-[#606060] font-[500]'>
+                <span className='text-[15px] max-[768px]:text-[12px] mx-2 my-3 text-gray font-semibold'>
                    {channelUserName}
                 </span>
-                <span className='text-[15px] max-[768px]:text-[12px] my-4 text-[#606060] mx-2 font-[500]'>{subscribers} subscribers</span>
+                <span className='text-[15px] max-[768px]:text-[12px] my-4 text-gray mx-2 font-semibold'>{subscribers} subscribers</span>
 
-                <span className='text-[15px]  max-[768px]:text-[12px] block my-1 text-[#606060] mx-2 font-[500] '>{description.slice(0,40)}...</span>
+                <span className='text-[15px]  max-[768px]:text-[12px] block my-1 text-gray mx-2 font-semibold '>{description.slice(0,40)}...</span>
             </div>
-            <button className='bg-gray-900 col-span-2 max-[768px]:col-span-12 my-3  text-gray-100 rounded-[20px] px-5 py-2'>subscriber</button>
+            <button className='bg-secondary col-span-2 max-[768px]:col-span-12 my-3  text-neutral font-semibold rounded-[20px] px-5 py-2'>subscriber</button>
         </div>
     )
 }

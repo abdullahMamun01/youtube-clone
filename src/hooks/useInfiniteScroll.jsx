@@ -1,44 +1,47 @@
-import { useInfiniteQuery } from "@tanstack/react-query"
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 
-// fetchData(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=9&pageToken=${pageParam}&q=${selectSearch}&key=${import.meta.env.VITE_GOOGLE_API_KEY}`
-
-const useInfiniteScroll = (name, key, initialParam, fetchDataFn, transformDataFn) => {
-  const { data, error, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage, status, } = useInfiniteQuery({
-    queryKey: [name, key],
+const useInfiniteScroll = (queryKeys,initialParam,fetchDataFn,transformDataFn) => {
+  const memoizedTransformDataFn = useMemo(() => transformDataFn, []);
+  const {
+    data,
+    error,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status} = useInfiniteQuery({
+    queryKey: queryKeys,
     queryFn: async (arg) => await fetchDataFn(arg),
     initialPageParam: initialParam,
     select: (data) => {
-      return  {
-        pages: data.pages.map(item => ({
+      return {
+        pages: data.pages.map((item) => ({
           ...item,
-          items: transformDataFn(item.items)
+          items: memoizedTransformDataFn(item.items),
         })),
-        pageParams: [...data.pageParams]
-      }
-
+        pageParams: [...data.pageParams],
+      };
     },
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage.nextPageToken 
-    } ,
-    staleTime :Infinity
-
-
-  })
+    getNextPageParam: (lastPage) => {
+      return lastPage.nextPageToken;
+    },
+    staleTime: Infinity,
+  });
   return {
     data,
     error,
+    isError,
     fetchNextPage,
     hasNextPage,
     isFetching,
     isFetchingNextPage,
     status,
-  }
-}
+  };
+};
 
-
-export default useInfiniteScroll
-
-
+export default useInfiniteScroll;
 
 /* 
 [

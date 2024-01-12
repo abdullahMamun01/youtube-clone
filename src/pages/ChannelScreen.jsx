@@ -1,37 +1,48 @@
 import React from 'react'
-import ChannelThumbnails from '../components/ChannelThumbnails'
-import ChannelDetails from '../components/ChannelDetails'
+
 import { useParams } from 'react-router-dom'
 import useFetchQuery from '../hooks/useFetchQuery'
 import { API_KEY } from '../utils/constants'
-import ChannelVideos from '../components/ChannelVideos'
+import fetchFromApi from '../utils/fetchFromApi'
+import ChannelThumbnails from '../components/channel/ChannelThumbnails'
+import ChannelVideos from '../components/channel/ChannelVideos'
+import ChannelDetails from '../components/channel/ChannelDetails'
 
 const ChannelScreen = () => {
   const { channelId } = useParams()
-  const path = `channels?part=snippet%2CbrandingSettings%2Cstatistics&id=${channelId}&key=${API_KEY}`
-  const { data, isLoading, isPending ,isError } = useFetchQuery(path)
-  console.log(data, ' channelScreen')
-  const channelData = data?.items[0]
+  const params = {
+    part: 'snippet,statistics,brandingSettings',
+    id: channelId,
+    key: API_KEY,
+  };
 
-  if (isLoading || isPending) {
+  const { data, isLoading, isPending, isError, isFetched } = useFetchQuery(['yt-videos', params],async () => fetchFromApi('/channels', params))
+  
+  if (isLoading || isPending || !isFetched) {
     // Consider using a loading spinner for a better user experience
-    return <div>Loading....</div>;
+    return <div className='text-secondary'>Loading....</div>;
   }
 
   if (isError) {
-    return <div>Error loading data</div>;
+    return <div className='text-secondary'>Error loading data</div>;
   }
+
+  const channelData = data?.items[0]
+  console.log(data, ' channelScreen')
+  console.log(channelData.brandingSettings)
+
   return (
     <div className=' w-full max-[768px]:w-full max-[768px]:m-0 mx-auto'>
-            <ChannelThumbnails url={channelData.brandingSettings.image.bannerExternalUrl} />
-            <ChannelDetails 
-            channelUserName= {channelData.snippet.customUrl}
-            title={channelData.snippet.title}
-            statistics = {channelData.statistics}
-            description={channelData.snippet.description}
-            channelProfileImg={channelData.snippet.thumbnails  }
-            />
-            <ChannelVideos channelId={channelId}/>
+      {channelData.brandingSettings.image && <ChannelThumbnails url={channelData.brandingSettings.image.bannerExternalUrl} />}
+      <ChannelDetails
+        channelUserName={channelData.snippet.customUrl}
+        title={channelData.snippet.title}
+        statistics={channelData.statistics}
+        description={channelData.snippet.description}
+        channelProfileImg={channelData.snippet.thumbnails}
+      />
+      <h1 className='text-[22px] my-2 text-secondary font-semibold '>All videos</h1>
+      <ChannelVideos channelId={channelId} />
     </div >
   )
 }

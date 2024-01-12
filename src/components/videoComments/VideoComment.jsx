@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
-import LikeIcon from './ui/LikeIcon'
-import DislikeIcon from './ui/DislikeIcon'
-import getDateDifference from '../utils/getDatePart '
+
+import LikeIcon from '../ui/LikeIcon'
+import DislikeIcon from '../ui/DislikeIcon'
+import getDateDifference from '../../utils/getDatePart '
 
 
+// eslint-disable-next-line react/prop-types
 const VideoComment = ({ imgUrl, reply, publishedAt, authorDisplayName }) => {
   const replyTime = getDateDifference(publishedAt)
 
   return (
-    <div className=' my-3 py-3 flex gap-1'>
+    <div className=' my-3 py-3 flex gap-1 text-gray'>
       
 
       {/* author profile image */}
@@ -16,9 +17,9 @@ const VideoComment = ({ imgUrl, reply, publishedAt, authorDisplayName }) => {
 
       {/* author comments and details */}
       <div className='truncate'>
-        <h3 className='font-bold text-gray-800 text-[13px] mb-1.5 '>
+        <h3 className='font-bold text-gray-800 text-lg mb-1.5 '>
           {authorDisplayName}
-          <span className='ml-1 text-gray-500 text-[12px]'>
+          <span className='ml-1 text-gray-500 text-sm'>
             {replyTime}
           </span>
         </h3>

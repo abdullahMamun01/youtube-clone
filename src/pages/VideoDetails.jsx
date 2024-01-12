@@ -1,24 +1,33 @@
 import React, { useState } from 'react';
-import VideoPlay from '../components/VideoPlay';
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import VideoPlay from '../components/video/VideoPlay';
+import {  useParams } from 'react-router-dom';
 
-import ChannelInformation from '../components/ChannelInformation';
-import { VideoDescription } from '../components/VideoDescription';
+import ChannelInformation from '../components/channel/ChannelInformation';
+
 import useFetchQuery from '../hooks/useFetchQuery';
-import VideoComments from '../components/VideoComments';
+import VideoComments from '../components/videoComments/VideoComments';
 import { API_KEY } from '../utils/constants';
+import RelatedVideoList from '../components/features/RelatedVideoList';
+import fetchFromApi from '../utils/fetchFromApi';
+import { VideoDescription } from '../components/video/VideoDescription';
 
 const VideoDetails = () => {
     const { videoId } = useParams();
-    const path = `videos?part=snippet%2Cstatistics&id=${videoId}&key=${API_KEY}`
-    const { data, isLoading, isPending, isFetched, isError } = useFetchQuery(path)
+    const params = {
+        part: 'snippet,statistics',
+        id: videoId,
+        key: API_KEY
+    }
+    
+    const { data, isLoading, isPending, isFetched, isError } = useFetchQuery(['yt-videos', params],async () => fetchFromApi('/videos', params))
+    
     const videoInfo = data?.items[0]
-    console.log(data, ' id')
-    if (isLoading || isPending) {
-        return <div>Loading....</div>
+
+    if (isLoading || isPending ) {
+        return <div className='text-secondary'>Loading....</div>
     }
     if (isError) {
-        return <div> Erorr ....</div>
+        return <div className='text-secondary'> Erorr ....</div>
     }
 
 
@@ -29,42 +38,37 @@ const VideoDetails = () => {
                 {/* Left Side */}
                 <div className='w-full mr-8  '>
                     {/* Video Player */}
-
                     <VideoPlay url={`https://www.youtube.com/watch?v=${videoId}`} />
 
                     {/*video title */}
-                    <div className=''>
-                        <h1 className='my-4 text-[18px] max-[768px]:text-[15px] font-bold leading-[1rem] max-[768px]:leading-[26px]'>
-                            {videoInfo?.snippet?.localized?.title}
-                        </h1>
-                    </div>
+                    <h1 className='my-4 text-[20px] text-secondary max-[768px]:text-lg md:mt-6 font-bold leading-[1.5rem] max-[768px]:leading-[26px] text-pretty '>
+                        {videoInfo?.snippet?.localized?.title}
+                    </h1>
 
                     {/* Channel Information */}
                     <div className='mb-6 '>
-                        <Link to={`/channel/${videoInfo.snippet.channelId}`}>
-                            <ChannelInformation channelId={videoInfo.snippet.channelId} statistics={videoInfo.statistics} channelTitle={videoInfo?.snippet?.channelTitle} />
-                        </Link>
+                        <ChannelInformation channelId={videoInfo?.snippet?.channelId} statistics={videoInfo?.statistics} channelTitle={videoInfo?.snippet?.channelTitle} />
                     </div>
 
                     {/* Video Description */}
-
                     <VideoDescription description={videoInfo?.snippet?.localized?.description} />
 
                     {/* video comments */}
                     <VideoComments videoId={videoId} />
                 </div>
 
-                {/* Right Side - Related Videos */}
+                {/*  Related Videos */}
             </div>
             <div className='md:col-span-4 max-[768px]:col-span-12'>
-                <div className='bg-gray-200 p-4'>
-                    <h2 className='text-xl font-semibold mb-4'>Related Videos</h2>
+                <RelatedVideoList videoId={videoId}/>
+                {/* <div className='bg-gray-200 p-4'>
+                    <h2 className='text-xl font-semibold mb-4'>Related Videos</h2> */}
                     {/* Include your related videos component here */}
                     {/* Example: <RelatedVideos /> */}
-                </div>
+                {/* </div> */}
             </div>
 
-
+            *
         </div>
     );
 };
