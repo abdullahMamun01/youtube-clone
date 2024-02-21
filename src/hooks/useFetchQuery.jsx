@@ -5,7 +5,8 @@ const useFetchQuery = (queryKey ,fetchFunction ) => {
         queryKey: queryKey,
         queryFn:  fetchFunction,
         staleTime: Infinity,
-        placeholderData : keepPreviousData
+        placeholderData : keepPreviousData,
+        retry:false
     })
     return {
         data,

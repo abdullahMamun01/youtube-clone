@@ -18,10 +18,11 @@
 //   }, [])
 // }
 const transformDataFn = (items) => {
-  return items?.reduce((acc, curr) => {
+  return items?.reduce((acc, curr,i) => {
     const video = {}
 
     if (curr?.id?.videoId) {
+      video.vdID = i
       video.videoId = curr?.id?.videoId;
       video.publishedAt = curr?.snippet.publishedAt
       video.channelId = curr?.snippet.channelId

@@ -19,7 +19,6 @@ const ChannelScreen = () => {
   const { data, isLoading, isPending, isError, isFetched } = useFetchQuery(['yt-videos', params],async () => fetchFromApi('/channels', params))
   
   if (isLoading || isPending || !isFetched) {
-    // Consider using a loading spinner for a better user experience
     return <div className='text-secondary'>Loading....</div>;
   }
 

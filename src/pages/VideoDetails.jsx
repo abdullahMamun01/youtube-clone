@@ -19,17 +19,17 @@ const VideoDetails = () => {
         key: API_KEY
     }
     
-    const { data, isLoading, isPending, isFetched, isError } = useFetchQuery(['yt-videos', params],async () => fetchFromApi('/videos', params))
+    const { data, isLoading, isPending, isError } = useFetchQuery(['yt-videos', params],async () => fetchFromApi('/videos', params))
     
     const videoInfo = data?.items[0]
-
+    console.log(data , ' not found...')
     if (isLoading || isPending ) {
         return <div className='text-secondary'>Loading....</div>
     }
     if (isError) {
-        return <div className='text-secondary'> Erorr ....</div>
+        return <div className='text-secondary'> Error ....</div>
     }
-
+    console.log('loading.......')
 
     return (
         <div className='min-h-screen w-[90%] grid grid-cols-12  mx-auto  truncate'>
@@ -60,7 +60,7 @@ const VideoDetails = () => {
                 {/*  Related Videos */}
             </div>
             <div className='md:col-span-4 max-[768px]:col-span-12'>
-                <RelatedVideoList videoId={videoId}/>
+               {videoId &&  <RelatedVideoList videoId={videoId}/> }
                 {/* <div className='bg-gray-200 p-4'>
                     <h2 className='text-xl font-semibold mb-4'>Related Videos</h2> */}
                     {/* Include your related videos component here */}
@@ -68,7 +68,7 @@ const VideoDetails = () => {
                 {/* </div> */}
             </div>
 
-            *
+            
         </div>
     );
 };

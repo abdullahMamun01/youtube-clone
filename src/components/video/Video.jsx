@@ -6,7 +6,7 @@ import getDateDifference from '../../utils/getDatePart '
 
 const Video = ({ video }) => {
   const { videoId, title, thumbnails, channelName, publishedAt } = video
-  const titleSplit = title.slice(0, 66)
+  const titleSplit = title?.slice(0, 66)
   const dateDifference = getDateDifference(publishedAt)
 
   
@@ -16,7 +16,7 @@ const Video = ({ video }) => {
       <Link to={`/video/${videoId}`}>
 
           <figure className="max-w-lg">
-            <img className="w-full h-[210px] md:w-[320px] md:h-[180px]  object-cover md:rounded-md hover:rounded-none " src={thumbnails.high.url} alt="image description"
+            <img className="w-full h-[210px] md:w-[320px] md:h-[180px]  object-cover md:rounded-md hover:rounded-none " src={thumbnails?.high.url} alt="image description"
               
             />
 

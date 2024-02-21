@@ -1,13 +1,29 @@
+import { useAppContext } from "../../context/App/AppContextProvider";
+import { addToHistory } from "../../context/action";
+import useFireStore from "../../hooks/useFireStore";
+import transformDataFn from "../../utils/transformDataFn";
 import Video from "./Video";
 
+const VideoFeed = ({ videos }) => {
+  const { state, dispatch } = useAppContext();
+  const { email } = state.user;
+  const { addData } = useFireStore(email);
 
-const VideoFeed = ({ videos, handleHistory }) => {
-  console.log(videos)
+  const handAddleHistory = (video) => {
+    const findData = state.history.find((vd) => vd.id === video.id);
+    if (!findData) {
+      dispatch(addToHistory(video));
+      addData({ data: video, collectionName: email });
+    }
+    console.log(state);
+  };
+  
+const data = transformDataFn(videos)
   return (
     <>
-      {videos?.map((item) => (
+      {data?.map((item) => (
         <div
-          onClick={() => handleHistory(item)}
+          onClick={() => handAddleHistory(item)}
           key={item.videoId}
           className="col-span-4"
         >
@@ -18,4 +34,4 @@ const VideoFeed = ({ videos, handleHistory }) => {
   );
 };
 
-export default VideoFeed
+export default VideoFeed;

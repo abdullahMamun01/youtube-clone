@@ -1,4 +1,4 @@
-import { ADD_TO_HISTORY, SEARCH, SET_VIDEOS } from "./actionType";
+import { ADD_TO_HISTORY, SEARCH, SET_VIDEOS, USER_LOGGED_IN, USER_LOGGED_OUT } from "./actionType";
 
 export const searchVideos = (searchQuery ) => {
     return {
@@ -8,6 +8,7 @@ export const searchVideos = (searchQuery ) => {
 };
 
 export const addToHistory = (video) => {
+    console.log('ad to history ' , video)
     return {
         type: ADD_TO_HISTORY,
         payload: video
@@ -15,9 +16,10 @@ export const addToHistory = (video) => {
 };
 
 
-export const setData = (video) => {
+export const setVideos = (video) => {
     return {
         type: SET_VIDEOS,
         payload: video
     };
 };
+

@@ -21,15 +21,18 @@ export const VideoDescription = ({ description }) => {
     <div className="w-full bg-neutral px-4 py-6 rounded-lg ">
       <p className="text-pretty text-gray">
         {!seeMore && description && (
-          <h1>
-            {description.slice(0, 100)}
+          <>
+            <span>
+
+              {description.slice(0, 100)}
+            </span>
             <span
               className="cursor-pointer text-sky ml-2"
               onClick={() => setSeeMore(true)}
             >
               see more...
             </span>
-          </h1>
+          </>
         )}
         {seeMore &&
           parts &&
@@ -37,7 +40,7 @@ export const VideoDescription = ({ description }) => {
             <p className="my-2">
               {line.split(" ").map((str, i) =>
                 hasUrl(str) ? (
-                  <a className="text-sky-600 mx-2" href={str}>
+                  <a className="text-sky mx-2" href={str}>
                     {str}
                   </a>
                 ) : (
