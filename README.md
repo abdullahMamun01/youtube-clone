@@ -25,4 +25,4 @@ This React-based project utilizes the YouTube API to create a dynamic and engagi
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/youtube-project.git
+   git clone https://github.com/abdullahMamun01/youtube-clone.git
