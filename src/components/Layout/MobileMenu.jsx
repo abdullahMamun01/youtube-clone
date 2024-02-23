@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 const MobileMenu = () => {
     const { user } = useAuthContext()
     const {userSignIn} = useFirebaseAuth()
-    console.log(user)
+
     return (
         <div className="min-w-screen w-full md:hidden flex items-center justify-center fixed bottom-0   border-t border-gray bg-primary">
             <div className="w-full mx-auto">

@@ -38,7 +38,7 @@ const VideoLists = () => {
   //transform data
   const transformData = transformDataFn(videoList);
 
-  console.log("loading...........");
+
   return (
     <div className="w-full">
       {isError && <ErrorMessage message={error} />}

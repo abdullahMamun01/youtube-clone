@@ -10,7 +10,7 @@ const MobileSearch = ({ onVisibility }) => {
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
       setSearchTerm(search)
-      console.log('key press')
+    
     }
   }
   return (

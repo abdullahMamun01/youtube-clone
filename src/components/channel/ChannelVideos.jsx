@@ -18,7 +18,7 @@ const ChannelVideos = ({ channelId }) => {
 
     const { data, isLoading, isError, isPending,error } = useFetchQuery(['yt-videos', params],async () => fetchFromApi('/search', params))
 
-    console.log(data)
+ 
     if (isLoading || isPending) {
         return [...new Array(20)].map((_item) => (
             <Skeleton />
@@ -31,7 +31,7 @@ const ChannelVideos = ({ channelId }) => {
 
 
     const transformData = transformDataFn(data.items)
-    console.log(transformData)
+
     return (
         <div className='w-full grid grid-cols-12  '>
             {

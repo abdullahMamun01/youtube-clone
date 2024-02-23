@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import { Suspense, lazy } from "react";
 import ErrorPage from "./components/error/ErrorPage";
+import Layout from "./components/Layout/Layout";
 
 const Feeds = lazy(() => import("./components/Feeds"));
 const Root = lazy(() => import("./components/Layout/Root"));
@@ -42,31 +43,31 @@ const router = createBrowserRouter([
         path: "/history",
         element: (
           <Suspense fallback={<div>Loading...</div>}>
-            <div className="flex gap-2 max-[768px]:w-full w-[95%] mx-auto justify-center">
-              <div className="md:basis-[20%]  max-[768px]:hidden">
-                <Sidebar />
-              </div>
-              <div className="w-full max-[768px]:basis-[95%] basis-[80%] bg-green-900 ">
-                <VideoHistory />
-              </div>
-            </div>
+            <Layout/>
+          
           </Suspense>
         ),
+        children : [
+          {
+            path : '' ,
+            element : <VideoHistory/>
+    
+          }
+        ]
       },
       {
         path: "/channel/:channelId",
         element: (
           <Suspense fallback={<div>Loading...</div>}>
-            <div className="flex gap-2 max-[768px]:w-full w-[95%] mx-auto justify-center">
-              <div className="md:basis-[20%]  max-[768px]:hidden">
-                <Sidebar />
-              </div>
-              <div className="w-full max-[768px]:basis-[95%] basis-[80%]  ">
-                <ChannelScreen />
-              </div>
-            </div>
+            <Layout/>
           </Suspense>
         ),
+        children : [
+          {
+            path : '' ,
+            element : <ChannelScreen/>
+          }
+        ]
       },
     ],
   },

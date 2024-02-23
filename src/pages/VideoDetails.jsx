@@ -22,14 +22,14 @@ const VideoDetails = () => {
     const { data, isLoading, isPending, isError } = useFetchQuery(['yt-videos', params],async () => fetchFromApi('/videos', params))
     
     const videoInfo = data?.items[0]
-    console.log(data , ' not found...')
+
     if (isLoading || isPending ) {
         return <div className='text-secondary'>Loading....</div>
     }
     if (isError) {
         return <div className='text-secondary'> Error ....</div>
     }
-    console.log('loading.......')
+
 
     return (
         <div className='min-h-screen w-[90%] grid grid-cols-12  mx-auto  truncate'>

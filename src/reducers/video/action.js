@@ -8,7 +8,7 @@ export const searchVideos = (searchQuery ) => {
 };
 
 export const addToHistory = (video) => {
-    console.log('ad to history ' , video)
+
     return {
         type: ADD_TO_HISTORY,
         payload: video

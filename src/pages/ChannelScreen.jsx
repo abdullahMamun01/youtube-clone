@@ -27,8 +27,7 @@ const ChannelScreen = () => {
   }
 
   const channelData = data?.items[0]
-  console.log(data, ' channelScreen')
-  console.log(channelData.brandingSettings)
+ 
 
   return (
     <div className=' w-full max-[768px]:w-full max-[768px]:m-0 mx-auto'>

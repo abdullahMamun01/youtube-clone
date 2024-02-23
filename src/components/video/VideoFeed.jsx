@@ -15,7 +15,7 @@ const VideoFeed = ({ videos }) => {
       dispatch(addToHistory(video));
       addData({ data: video, collectionName: email });
     }
-    console.log(state);
+  
   };
   
 const data = transformDataFn(videos)

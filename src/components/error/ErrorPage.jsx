@@ -3,7 +3,7 @@ import { Outlet, useRouteError } from 'react-router-dom'
 
 const ErrorPage = () => {
     const error = useRouteError()
-    console.log(error)
+
     return (
         <section className=" py-[120px] text-secondary">
           

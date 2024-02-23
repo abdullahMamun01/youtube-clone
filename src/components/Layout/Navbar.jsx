@@ -11,7 +11,7 @@ const Navbar = () => {
     const { setSearchTerm } = useSearchContext()
     const [search, setSearch] = useState('')
     const { user } = useAuthContext()
-    console.log('render ...')
+    
     const toggleSearchVisibility = () => {
         setSearchVisibility(!isSearchVisible);
     }

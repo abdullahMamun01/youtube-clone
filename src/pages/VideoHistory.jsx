@@ -10,11 +10,9 @@ import { useAuthContext } from "../hooks/context/useAuthcontext";
 
 const VideoHistory = () => {
   const { user } = useAuthContext();
-console.log(user?.email)
 
- 
   const { data } =   useFireStore(user?.email);
-  console.log(data)
+
   // const {VideoHistory,initialSetVideoHistory} = useContext(VideoHistoryContext)
 
   // useEffect(() => {
